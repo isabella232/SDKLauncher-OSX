@@ -90,6 +90,7 @@
 		AD8C85259D008A63A6E28496 /* LOXScriptInjector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LOXScriptInjector.h; sourceTree = "<group>"; };
 		AD8C87BD2151EC37001B15C3 /* LOXScriptInjector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LOXScriptInjector.m; sourceTree = "<group>"; };
 		AD8C88A604DBA0AB6CC2B4B9 /* LOXSpineItemCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LOXSpineItemCocoa.h; sourceTree = "<group>"; };
+		AD8C88BD8761D470ED7278BD /* ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = ts; sourceTree = "<group>"; };
 		AD8C8DB5E2BC84877CC1C9C0 /* LOXPageNumberTextController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LOXPageNumberTextController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +151,7 @@
 				8597D61716824655000FAAAF /* LauncherOSX */,
 				8597D61016824655000FAAAF /* Frameworks */,
 				8597D60E16824655000FAAAF /* Products */,
+				AD8C88BD8761D470ED7278BD /* ts */,
 			);
 			sourceTree = "<group>";
 		};
@@ -290,6 +292,7 @@
 				8597D60916824655000FAAAF /* Sources */,
 				8597D60A16824655000FAAAF /* Frameworks */,
 				8597D60B16824655000FAAAF /* Resources */,
+				85F74E5D16C1C4BF00D29953 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -339,6 +342,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		85F74E5D16C1C4BF00D29953 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#./ts $PROJECT_ROOT/ts/main.ts $BUILD_PRODUCT/Scripts/js/";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8597D60916824655000FAAAF /* Sources */ = {

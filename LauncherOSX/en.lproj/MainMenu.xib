@@ -1349,7 +1349,7 @@
 								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="647810958">
+							<object class="IBNSLayoutConstraint" id="93689485">
 								<reference key="firstItem" ref="439893737"/>
 								<int key="firstAttribute">6</int>
 								<int key="relation">0</int>
@@ -1365,7 +1365,7 @@
 								<float key="scoringTypeFloat">9</float>
 								<int key="contentType">3</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="516199452">
+							<object class="IBNSLayoutConstraint" id="986267581">
 								<reference key="firstItem" ref="993777637"/>
 								<int key="firstAttribute">4</int>
 								<int key="relation">0</int>
@@ -1413,7 +1413,7 @@
 								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">3</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="132081022">
+							<object class="IBNSLayoutConstraint" id="659970119">
 								<reference key="firstItem" ref="439893737"/>
 								<int key="firstAttribute">6</int>
 								<int key="relation">0</int>
@@ -1958,7 +1958,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">923</int>
-						<reference key="object" ref="132081022"/>
+						<reference key="object" ref="659970119"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1968,7 +1968,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">927</int>
-						<reference key="object" ref="516199452"/>
+						<reference key="object" ref="986267581"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1978,7 +1978,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">929</int>
-						<reference key="object" ref="647810958"/>
+						<reference key="object" ref="93689485"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 				</array>
@@ -2016,11 +2016,11 @@
 					<reference ref="95516097"/>
 					<reference ref="586797609"/>
 					<reference ref="155739711"/>
-					<reference ref="132081022"/>
+					<reference ref="659970119"/>
 					<reference ref="155402535"/>
 					<reference ref="939002405"/>
-					<reference ref="516199452"/>
-					<reference ref="647810958"/>
+					<reference ref="986267581"/>
+					<reference ref="93689485"/>
 					<reference ref="574329875"/>
 					<reference ref="312561057"/>
 				</array>
