@@ -20,7 +20,7 @@ module ReadiumSdk {
             return $("#epubContentIframe")[0].contentDocument;
         }
 
-        private openPage(number pageIndex)
+        private openPage(pageIndex : number)
         {
             if(pageIndex >= 0 && pageIndex < this.pagination.pageCount) {
                 this.pagination.currentPage = pageIndex;
