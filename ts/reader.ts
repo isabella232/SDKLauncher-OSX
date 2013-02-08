@@ -4,47 +4,61 @@
 ///<reference path='pagination_info.ts' />
 
 module ReadiumSdk {
-    class Reader {
+
+    export class Reader {
+
+        private static instance : Reader;     
 
         public viewPortSize : Size;
         public paginationInfo : PaginationInfo;
 
+        public static getInstance() : Reader {
+
+            if(instance == null) {
+                instance = new Reader();
+            }
+
+            return instance;
+        }  
+
         constructor()
         {
-            viewPortSize = new Size();
-            paginationInfo = new PaginationInfo(1, 20);
+            this.paginationInfo = new PaginationInfo(1, 20);
+            this.viewPortSize = new Size();
+            
         }
 
         public getEpubContentDocument()
         {
-            return $("#epubContentIframe")[0].contentDocument;
+            var iframe = <HTMLIFrameElement>document.getElementById("epubContentIframe");
+            return iframe.contentDocument;
         }
 
-        private openPage(pageIndex : number)
+        public openPage(pageIndex : number)
         {
-            if(pageIndex >= 0 && pageIndex < this.pagination.pageCount) {
-                this.pagination.currentPage = pageIndex;
+            if(pageIndex >= 0 && pageIndex < this.paginationInfo.pageCount) {
+                this.paginationInfo.currentPage = pageIndex;
                 this.displayCurrentPage();
             }
         }
 
 
-        private moveNextPage() : void
+        public moveNextPage() : void
         {
             console.log("OnNextPage()");
 
-            if(this.pagination.currentPage < this.pagination.pageCount - 1) {
-                this.pagination.currentPage++;
+            if(this.paginationInfo.currentPage < this.paginationInfo.pageCount - 1) {
+                this.paginationInfo.currentPage++;
                 this.displayCurrentPage();
             }
         }
 
-        private movePrevPage() : void
+        public movePrevPage() : void
         {
             console.log("OnPrevPage()");
 
-            if(this.pagination.currentPage > 0) {
-                this.pagination.currentPage--;
+            if(this.paginationInfo.currentPage > 0) {
+                this.paginationInfo.currentPage--;
                 this.displayCurrentPage();
             }
 
@@ -52,29 +66,37 @@ module ReadiumSdk {
 
         private displayCurrentPage() : void
         {
-            if(this.pagination.currentPage < 0 || this.pagination.currentPage >= this.pagination.pageCount) {
+            if(this.paginationInfo.currentPage < 0 || this.paginationInfo.currentPage >= this.paginationInfo.pageCount) {
 
-                document.LauncherUI.onOpenPageIndexOfPages(0, 0);
+                this.updateLauncher(0, 0);
                 return;
             }
 
-            var shift = this.pagination.currentPage * (_this.lastKeyholeSize.width + this.pagination.columnGap);
+            var shift = this.paginationInfo.currentPage * (this.viewPortSize.width + this.paginationInfo.columnGap);
 
             var $epubHtml = $("html", this.getEpubContentDocument());
             $epubHtml.css("left", -shift + "px");
 
-            document.LauncherUI.onOpenPageIndexOfPages(this.pagination.currentPage, this.pagination.pageCount);
+            this.updateLauncher(this.paginationInfo.currentPage, this.paginationInfo.pageCount);
         }
 
-        private updateKeyholeSize() : bool
+        private updateLauncher(pageIx: number, pageCount: number) {
+
+            var launcher = window['LauncherUI'];
+            if (launcher) {
+                launcher.onOpenPageIndexOfPages(pageIx, pageCount);
+            }
+        }
+
+        public updateViewPortSize() : bool
         {
             var newWidth = $("#key-hole").width();
             var newHeight = $("#key-hole").height();
 
-            if(this.lastKeyholeSize.width !== newWidth || this.lastKeyholeSize.height !== newHeight){
+            if(this.viewPortSize.width !== newWidth || this.viewPortSize.height !== newHeight){
 
-                this.lastKeyholeSize.width = newWidth;
-                this.lastKeyholeSize.height = newHeight;
+                this.viewPortSize.width = newWidth;
+                this.viewPortSize.height = newHeight;
                 return true;
             }
 
@@ -84,24 +106,24 @@ module ReadiumSdk {
 
         updatePagination() : void
         {
-            this.pagination.columnWidth = (this.lastKeyholeSize.width - this.pagination.columnGap * (this.pagination.visibleColumnCount  -1)) / this.pagination.visibleColumnCount;
+            this.paginationInfo.columnWidth = (this.viewPortSize.width - this.paginationInfo.columnGap * (this.paginationInfo.visibleColumnCount  -1)) / this.paginationInfo.visibleColumnCount;
 
-            var contentDoc = _this.getEpubContentDocument();
-            $("html", contentDoc).css("width", _this.lastKeyholeSize.width);
-            $("html", contentDoc).css("-webkit-column-width", _this.pagination.columnWidth + "px");
+            var contentDoc = this.getEpubContentDocument();
+            $("html", contentDoc).css("width", this.viewPortSize.width);
+            $("html", contentDoc).css("-webkit-column-width", this.paginationInfo.columnWidth + "px");
 
-            thisß.displayCurrentPage();
+            this.displayCurrentPage();
 
             //TODO it takes time for layout engine to arrange columns we waite
             //it would be better to react on layout column reflow finished event
-            setTimeout(function(){
+            setTimeout( () => {
                 console.log("Set num of viewports");
                 var columnizedContentWidth = $("html", contentDoc)[0].scrollWidth;
                 $("#epubContentIframe").css("width", columnizedContentWidth);
-                this.pagination.pageCount = Math.round(columnizedContentWidth / _this.lastKeyholeSize.width);
+                this.paginationInfo.pageCount = Math.round(columnizedContentWidth / this.viewPortSize.width);
 
-                if(this.pagination.currentPage >= this.pagination.pageCount) {
-                    this.pagination.currentPage = this.pagination.pageCount - 1;
+                if(this.paginationInfo.currentPage >= this.paginationInfo.pageCount) {
+                    this.paginationInfo.currentPage = this.paginationInfo.pageCount - 1;
                 }
 
                 this.displayCurrentPage();
@@ -113,8 +135,8 @@ module ReadiumSdk {
 
     $(() => {
 
-        var reader = new Reader();
-
+        var reader = Reader.getInstance();
+        
          // When the iframe has been loaded, paginate the epub content document
         $("#epubContentIframe").on("load", (e) => {
 
@@ -132,15 +154,15 @@ module ReadiumSdk {
 //                    $epubHtml.css("background-color", '#b0c4de');
 /////////
 
-            reader.pagination.currentPage = 0;
-            reader.updateKeyholeSize();
+            reader.paginationInfo.currentPage = 0;
+            reader.updateViewPortSize();
             reader.updatePagination();
 
         });
 
         $(window).resize((e) => {
 
-           if(reader.updateKeyholeSize()) {
+            if (reader.updateViewPortSize()) {
 
                reader.updatePagination();
            }

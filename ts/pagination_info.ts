@@ -2,7 +2,7 @@
 
 module ReadiumSdk {
 
-    class PaginationInfo {
+    export class PaginationInfo {
 
         public visibleColumnCount : number;
         public columnGap : number;
@@ -12,8 +12,8 @@ module ReadiumSdk {
 
         constructor(visibleColumnCount : number, columnGap : number)
         {
-            self.visibleColumnCount = visibleColumnCount;
-            self.columnGap = columnGap;
+            this.visibleColumnCount = visibleColumnCount;
+            this.columnGap = columnGap;
         }
 
     }

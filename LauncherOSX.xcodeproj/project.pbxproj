@@ -291,8 +291,8 @@
 			buildPhases = (
 				8597D60916824655000FAAAF /* Sources */,
 				8597D60A16824655000FAAAF /* Frameworks */,
-				8597D60B16824655000FAAAF /* Resources */,
 				85F74E5D16C1C4BF00D29953 /* ShellScript */,
+				8597D60B16824655000FAAAF /* Resources */,
 			);
 			buildRules = (
 			);
@@ -354,8 +354,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#./ts $PROJECT_ROOT/ts/main.ts $BUILD_PRODUCT/Scripts/js/";
+			shellPath = /bin/bash;
+			shellScript = "export PATH=/usr/local/bin:$PATH\ntsc --out Scripts/build/reader.js ts/reader.ts";
 		};
 /* End PBXShellScriptBuildPhase section */
 

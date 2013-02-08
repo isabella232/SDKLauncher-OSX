@@ -42,20 +42,20 @@
 - (IBAction)onPrevPageClick:(id)sender
 {
     WebScriptObject* script = [_webView windowScriptObject];
-    [script evaluateWebScript:@"document.movePrevPage()"];
+    [script evaluateWebScript:@"window.ReadiumSdk.Reader.getInstance().movePrevPage()"];
 }
 
 
 - (IBAction)onNextPageClick:(id)sender
 {
     WebScriptObject* script = [_webView windowScriptObject];
-    [script evaluateWebScript:@"document.moveNextPage()"];
+    [script evaluateWebScript:@"window.ReadiumSdk.Reader.getInstance().moveNextPage()"];
 }
 
 - (void)openPageIndex:(int)pageIx
 {
     WebScriptObject* script = [_webView windowScriptObject];
-    [script evaluateWebScript:[NSString stringWithFormat:@"document.openPage(%d)", pageIx]];
+    [script evaluateWebScript:[NSString stringWithFormat:@"window.ReadiumSdk.Reader.getInstance().openPage(%d)", pageIx]];
 }
 
 
